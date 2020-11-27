@@ -1,4 +1,4 @@
-import os
+import os, logging
 from fastapi import FastAPI, HTTPException
 import requests
 
@@ -11,8 +11,10 @@ async def places(place_id):
     print('reached root')
     url = f'https://maps.googleapis.com/maps/api/place/details/json?'
     payload = {'fields': 'photos', 'key': key, 'place_id': place_id}
-    r = requests.get(url)
-    #print(r.status_code)
+    r = requests.get(url, params=payload)
+    print(r.status_code)
+    print(r.text)
+    print(r.url)
     try:
         r.raise_for_status()
         photos = r.json()['result']['photos']
