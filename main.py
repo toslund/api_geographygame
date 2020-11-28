@@ -1,10 +1,22 @@
 import os, logging
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 import requests
 
 app = FastAPI()
 
 key = os.getenv("API_KEY")
+
+origins = [
+    "https://quiet-taiga-97989.herokuapp.com",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_methods=["GET"],
+)
 
 @app.get("/places/{place_id}")
 async def places(place_id):
