@@ -30,7 +30,7 @@ async def places(place_id):
     try:
         r.raise_for_status()
         photos = r.json()['result']['photos']
-        return {"phtos": photos}
+        return {"photos": photos}
     except KeyError as error:
         #Google returns invalid request as 200 OK... Why, google?
         raise HTTPException(status_code=404, detail="Item not found")
